@@ -1,22 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 
-export default function Main(accessToken) {
-    
-    async function fetchCurrentSong(token){
-        return await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
-            method: "GET", headers: { Authorization: `Bearer ${token}` }
-        });
-    }
+export default function Main(refreshToken) {
+  const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
 
-    useEffect(() => {
-      const result = fetchCurrentSong()
-      result.then(data => console.log(data))
-    
-    }, [])
-    
+  const getNowPlaying = () => {
+    console.log(refreshToken);
+    return fetch(NOW_PLAYING_ENDPOINT, {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
+    });
+  };
 
-    
+  const handleGetSong = () => {
+    const result = getNowPlaying().then((data) => console.log(data));
+  };
+
   return (
-    <button onClick={fetchCurrentSong}></button>
-  )
+    <>
+      <button onClick={handleGetSong}></button>
+    </>
+  );
 }
