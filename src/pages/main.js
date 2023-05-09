@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import { refreshAccessToken, getRefreshToken } from "../api/spotifyApi";
+import "./main.css";
+import { Container } from "react-bootstrap";
 
 export default function Main() {
   const [nowPlaying, setNowPlaying] = useState({});
@@ -15,7 +17,15 @@ export default function Main() {
       spotifyApi.setAccessToken(token.access_token);
     };
     fetchRefreshToken();
+    updateSong();
   }, [spotifyApi]);
+
+  const updateSong = () => {
+    const interval = setInterval(() => {
+      getNowPlaying();
+    }, 3000); // update every 3 second
+    return () => clearInterval(interval);
+  };
 
   const getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then((response) => {
@@ -29,8 +39,9 @@ export default function Main() {
 
   return (
     <>
-      <button onClick={getNowPlaying}></button>
-      {nowPlaying.name}
+      <div className="image">
+        <img source={nowPlaying.albumArt} />
+      </div>
     </>
   );
 }
