@@ -40,7 +40,7 @@ export default function Main() {
   return (
     <>
       <div className="image">
-        <img source={nowPlaying.albumArt} />
+        <img src={nowPlaying.albumArt} />
       </div>
     </>
   );
