@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import { refreshAccessToken, getRefreshToken } from "../api/spotifyApi";
 import "./main.css";
-import { Container } from "react-bootstrap";
 
 export default function Main() {
   const [nowPlaying, setNowPlaying] = useState({});
   const [refreshToken, setRefreshToken] = useState("");
+  const [averageColor, setAverageColor] = useState();
   const spotifyApi = new SpotifyWebApi();
 
   useEffect(() => {
@@ -20,6 +20,8 @@ export default function Main() {
     updateSong();
   }, [spotifyApi]);
 
+  console.log(averageColor);
+
   const updateSong = () => {
     const interval = setInterval(() => {
       getNowPlaying();
@@ -28,19 +30,32 @@ export default function Main() {
   };
 
   const getNowPlaying = () => {
-    spotifyApi.getMyCurrentPlaybackState().then((response) => {
-      setNowPlaying({
-        name: response.item.name,
-        artist: response.item.artists[0].name,
-        albumArt: response.item.album.images[0].url,
-      });
-    });
+    spotifyApi.getMyCurrentPlaybackState().then(
+      (response) => {
+        setNowPlaying({
+          name: response.item.name,
+          artist: response.item.artists[0].name,
+          albumArt: response.item.album.images[0].url,
+        });
+      },
+      (error) => {
+        if (error.status === 401) {
+          refreshAccessToken(refreshToken).then((data) => {
+            spotifyApi.setAccessToken(data.access_token);
+            getNowPlaying();
+          });
+        }
+      }
+    );
   };
 
   return (
     <>
-      <div className="image">
-        <img src={nowPlaying.albumArt} />
+      <div className="imagediv">
+        <img className="img rounded-5" src={nowPlaying.albumArt} alt="Album" />
+        <div className="rectangle rounded-4 border border-dark"></div>
+        <div className="text-center namesong">{nowPlaying.name}</div>
+        <div className="text-center nameartist">{nowPlaying.artist}</div>
       </div>
     </>
   );
