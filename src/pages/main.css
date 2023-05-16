@@ -1,7 +1,6 @@
 body {
     height: 100vh;
     width: 100vw;
-    background-color: white;
     margin: 0rem;
     overflow: hidden;
 }
@@ -11,16 +10,15 @@ body {
     height: auto;
     display: block;
     margin: auto;
-    margin-top: 2%;
+    margin-top: 4%;
   }
 
 .rectangle{
     height: 10px;
-    width: 250px;
     background-color: white;
-    margin: auto;
+    margin:auto;
     margin-top: 1%;
-    border: 3px;
+    border: 1px;
 } 
 
 .namesong {
@@ -29,5 +27,5 @@ body {
 }
 
 .nameartist {
-    
+
 }
