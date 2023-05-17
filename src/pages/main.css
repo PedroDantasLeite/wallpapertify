@@ -34,6 +34,13 @@ body {
     font-size: 20px;
 }
 
+.smool {
+    margin-top: 2%;
+    height: 10px;
+    background-color:black;
+    width: 3px;
+}
+
 .nameartist {
 
 }

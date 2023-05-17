@@ -7,9 +7,8 @@ import chroma from "chroma-js";
 
 export default function Main() {
   const [nowPlaying, setNowPlaying] = useState({});
-  const [refreshToken, setRefreshToken] = useState("");
   const [averageColor, setAverageColor] = useState();
-  const [triadColor, setTriadColor] = useState([]);
+  const [compColor, setCompColor] = useState([]);
   const spotifyApi = new SpotifyWebApi();
   const fac = new FastAverageColor();
 
@@ -17,30 +16,27 @@ export default function Main() {
     document.body.style.backgroundColor = averageColor.hex;
   }
 
-  const fetchRefreshToken = async () => {
-    await getRefreshToken().then((success) => {
-      localStorage.setItem("refreshToken", success.refresh_token);
-      setRefreshToken(success.refresh_token);
-      spotifyApi.setAccessToken(success.access_token);
-    });
-  };
-
   useEffect(() => {
     if (!localStorage.getItem("refreshToken")) {
+      const fetchRefreshToken = async () => {
+        await getRefreshToken().then((success) => {
+          localStorage.setItem("refreshToken", success.refresh_token);
+          spotifyApi.setAccessToken(success.access_token);
+        });
+      };
       fetchRefreshToken();
     }
   }, [spotifyApi]);
 
   useEffect(() => {
+    const updateSong = () => {
+      const interval = setInterval(() => {
+        getNowPlaying();
+      }, 3000); // update every 3 seconds
+      return () => clearInterval(interval);
+    };
     updateSong();
   }, []);
-
-  const updateSong = () => {
-    const interval = setInterval(() => {
-      getNowPlaying();
-    }, 3000); // update every 3 seconds
-    return () => clearInterval(interval);
-  };
 
   const getNowPlaying = () => {
     spotifyApi.getMyCurrentPlaybackState().then(
@@ -57,14 +53,11 @@ export default function Main() {
         img.crossOrigin = "Anonymous";
         img.onload = () => {
           const color = fac.getColor(img);
-          setTriadColor(
-            chroma
-              .scale([
-                color.hex,
-                chroma(color.hex).set("hsl.h", "+120"),
-                chroma(color.hex).set("hsl.h", "-120"),
-              ])
-              .colors()
+          setCompColor(
+            chroma(color.hex)
+              .set("hsl.h", (chroma(color.hex).get("hsl.h") + 180) % 360)
+              .darken(0.5)
+              .hex()
           );
           setAverageColor(color);
         };
@@ -83,15 +76,17 @@ export default function Main() {
       <div className="imagediv">
         <img className="img rounded-4" src={nowPlaying.albumArt} alt="Album" />
         <div className="d-flex">
+          <div className="smool" />
           <div
             style={{
               width: `${Math.floor(
                 (nowPlaying.currentTime / nowPlaying.length) * 370
               )}px`,
-              backgroundColor: `${triadColor[2]}`,
+              backgroundColor: `${compColor}`,
             }}
-            className="rectangle rounded-4"
+            className="rectangle"
           ></div>
+          <div className="smool" />
         </div>
         <div className="text-center namesong text-black">{nowPlaying.name}</div>
         <div className="text-center nameartist text-black">
