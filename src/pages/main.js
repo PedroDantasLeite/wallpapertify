@@ -3,13 +3,16 @@ import SpotifyWebApi from "spotify-web-api-js";
 import { refreshAccessToken, getRefreshToken } from "../api/spotifyApi";
 import "./main.css";
 import { FastAverageColor } from "fast-average-color";
+import chroma from "chroma-js";
 
 export default function Main() {
   const [nowPlaying, setNowPlaying] = useState({});
   const [refreshToken, setRefreshToken] = useState("");
   const [averageColor, setAverageColor] = useState();
+  const [triadColor, setTriadColor] = useState([]);
   const spotifyApi = new SpotifyWebApi();
   const fac = new FastAverageColor();
+
   if (averageColor) {
     document.body.style.backgroundColor = averageColor.hex;
   }
@@ -46,7 +49,17 @@ export default function Main() {
         img.src = response.item.album.images[0].url;
         img.crossOrigin = "Anonymous";
         img.onload = () => {
-          setAverageColor(fac.getColor(img));
+          const color = fac.getColor(img);
+          setTriadColor(
+            chroma
+              .scale([
+                color.hex,
+                chroma(color.hex).set("hsl.h", "+120"),
+                chroma(color.hex).set("hsl.h", "-120"),
+              ])
+              .colors()
+          );
+          setAverageColor(color);
         };
       },
       (error) => {
@@ -60,29 +73,25 @@ export default function Main() {
     );
   };
 
-  console.log(
-    `w-${Math.floor(
-      (nowPlaying.currentTime / nowPlaying.length) * 370
-    )}px rectangle rounded-4 border border-dark`
-  );
-
   return (
     <>
       <div className="imagediv">
         <img className="img rounded-4" src={nowPlaying.albumArt} alt="Album" />
         <div className="d-flex">
           <div
-            //style={`width: ${Math.floor(
-            // (nowPlaying.currentTime / nowPlaying.length) * 370
-            //)}px`}
+            style={{
+              width: `${Math.floor(
+                (nowPlaying.currentTime / nowPlaying.length) * 370
+              )}px`,
+              backgroundColor: `${triadColor[2]}`,
+            }}
             className="rectangle rounded-4 border border-dark"
           ></div>
-          <div className="rectangle rounded-4 border border-dark"></div>
         </div>
-        <div className="text-center namesong">{nowPlaying.name}</div>
-        <div className="text-center nameartist">{nowPlaying.artist}</div>
-        <div>{nowPlaying.length}</div>
-        <div>{nowPlaying.currentTime}</div>
+        <div className="text-center namesong text-black">{nowPlaying.name}</div>
+        <div className="text-center nameartist text-black">
+          {nowPlaying.artist}
+        </div>
       </div>
     </>
   );

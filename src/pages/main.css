@@ -5,12 +5,18 @@ body {
     overflow: hidden;
 }
 
+.imagediv {
+    margin: auto;
+    width: 25%;
+    height: 100vw;
+}
+
 .img {
-    width: 30%;
+    width: 100%;
     height: auto;
     display: block;
     margin: auto;
-    margin-top: 4%;
+    margin-top: 40%;
   }
 
 .rectangle{
@@ -19,6 +25,8 @@ body {
     margin:auto;
     margin-top: 1%;
     border: 1px;
+    float: right;
+    margin-left: 0;
 } 
 
 .namesong {
