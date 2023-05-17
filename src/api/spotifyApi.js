@@ -1,9 +1,11 @@
+import axios from "axios";
+import { Buffer } from "buffer";
 const clientID = process.env.REACT_APP_CLIENT_ID;
 const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
 const redirectUri = process.env.REACT_APP_REDIRECT_URI;
 
 const getRefreshToken = async () => {
-  const code = new URLSearchParams(window.location.search).get("code");
+  let code = new URLSearchParams(window.location.search).get("code");
   if (!code) {
     throw new Error("Authorization code not found");
   }
@@ -12,11 +14,7 @@ const getRefreshToken = async () => {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: `grant_type=authorization_code&code=${new URLSearchParams(
-      window.location.search
-    ).get(
-      "code"
-    )}&redirect_uri=${redirectUri}&client_id=${clientID}&client_secret=${clientSecret}`,
+    body: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&client_id=${clientID}&client_secret=${clientSecret}`,
   };
   const response = await fetch(
     "https://accounts.spotify.com/api/token",
@@ -31,32 +29,39 @@ const getRefreshToken = async () => {
   return data;
 };
 
-const refreshAccessToken = async (refreshToken) => {
-  const url = "https://accounts.spotify.com/api/token";
-
-  const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    Authorization: "Basic " + btoa(clientID + ":" + clientSecret),
+const getAccessToken = async (refreshToken) => {
+  const credentials = {
+    clientId: clientID,
+    clientSecret: clientSecret,
+    redirectUri: redirectUri,
   };
 
-  const data = {
-    grant_type: "refresh_token",
-    refresh_token: refreshToken,
-  };
+  const authHeader = Buffer.from(
+    `${credentials.clientId}:${credentials.clientSecret}`
+  ).toString("base64");
+  const refreshTokenUrl = "https://accounts.spotify.com/api/token";
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: headers,
-    body: new URLSearchParams(data),
-  });
+  try {
+    const { data } = await axios.post(
+      refreshTokenUrl,
+      new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Basic ${authHeader}`,
+        },
+      }
+    );
 
-  const responseData = await response.json();
-
-  if (responseData.error) {
-    throw new Error(responseData.error_description);
+    const accessToken = data.access_token;
+    return accessToken;
+  } catch (err) {
+    console.error("Failed to refresh access token", err);
+    return null;
   }
-
-  return responseData.access_token;
 };
 
-export { getRefreshToken, refreshAccessToken };
+export { getRefreshToken, getAccessToken };

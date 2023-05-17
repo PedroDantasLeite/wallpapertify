@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
-import { refreshAccessToken, getRefreshToken } from "../api/spotifyApi";
+import { getAccessToken, getRefreshToken } from "../api/spotifyApi";
 import "./main.css";
 import { FastAverageColor } from "fast-average-color";
 import chroma from "chroma-js";
@@ -17,16 +17,23 @@ export default function Main() {
     document.body.style.backgroundColor = averageColor.hex;
   }
 
+  const fetchRefreshToken = async () => {
+    await getRefreshToken().then((success) => {
+      localStorage.setItem("refreshToken", success.refresh_token);
+      setRefreshToken(success.refresh_token);
+      spotifyApi.setAccessToken(success.access_token);
+    });
+  };
+
   useEffect(() => {
-    if (refreshToken) return;
-    const fetchRefreshToken = async () => {
-      const token = await getRefreshToken();
-      setRefreshToken(token.refresh_token);
-      spotifyApi.setAccessToken(token.access_token);
-    };
-    fetchRefreshToken();
-    updateSong();
+    if (!localStorage.getItem("refreshToken")) {
+      fetchRefreshToken();
+    }
   }, [spotifyApi]);
+
+  useEffect(() => {
+    updateSong();
+  }, []);
 
   const updateSong = () => {
     const interval = setInterval(() => {
@@ -63,12 +70,10 @@ export default function Main() {
         };
       },
       (error) => {
-        if (error.status === 401) {
-          refreshAccessToken(refreshToken).then((data) => {
-            spotifyApi.setAccessToken(data.access_token);
-            getNowPlaying();
-          });
-        }
+        getAccessToken(localStorage.getItem("refreshToken")).then((data) => {
+          spotifyApi.setAccessToken(data);
+          getNowPlaying();
+        });
       }
     );
   };
@@ -85,7 +90,7 @@ export default function Main() {
               )}px`,
               backgroundColor: `${triadColor[2]}`,
             }}
-            className="rectangle rounded-4 border border-dark"
+            className="rectangle rounded-4"
           ></div>
         </div>
         <div className="text-center namesong text-black">{nowPlaying.name}</div>
