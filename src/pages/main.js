@@ -79,26 +79,34 @@ export default function Main() {
 
   return (
     <>
-      <div className="imagediv">
-        <img className="img rounded-4" src={nowPlaying.albumArt} alt="Album" />
-        <div className="d-flex">
-          <div className="smool" />
-          <div
-            style={{
-              width: `${Math.floor(
-                (nowPlaying.currentTime / nowPlaying.length) * 370
-              )}px`,
-              backgroundColor: `${compColor}`,
-            }}
-            className="rectangle"
-          ></div>
-          <div className="smool" />
+      {(nowPlaying.name && (
+        <div className="imagediv">
+          <img
+            className="img rounded-4"
+            src={nowPlaying.albumArt}
+            alt="Album"
+          />
+          <div className="d-flex">
+            <div className="smool" />
+            <div
+              style={{
+                width: `${Math.floor(
+                  (nowPlaying.currentTime / nowPlaying.length) * 370
+                )}px`,
+                backgroundColor: `${compColor}`,
+              }}
+              className="rectangle"
+            ></div>
+            <div className="smool" />
+          </div>
+          <div className="text-center namesong text-black">
+            {nowPlaying.name}
+          </div>
+          <div className="text-center nameartist text-black">
+            {nowPlaying.artist}
+          </div>
         </div>
-        <div className="text-center namesong text-black">{nowPlaying.name}</div>
-        <div className="text-center nameartist text-black">
-          {nowPlaying.artist}
-        </div>
-      </div>
+      )) || <h3>loading</h3>}
     </>
   );
 }
