@@ -11,10 +11,10 @@ export default function Main() {
   const [compColor, setCompColor] = useState([]);
   const spotifyApi = new SpotifyWebApi();
   const fac = new FastAverageColor();
-
   if (averageColor) {
     document.body.style.backgroundColor = averageColor.hex;
   }
+  console.log(averageColor);
 
   useEffect(() => {
     if (!localStorage.getItem("refreshToken")) {
@@ -48,27 +48,33 @@ export default function Main() {
           length: response.item.duration_ms,
           currentTime: response.progress_ms,
         });
-        const img = new Image();
-        img.src = response.item.album.images[0].url;
-        img.crossOrigin = "Anonymous";
-        img.onload = () => {
-          const color = fac.getColor(img);
-          setCompColor(
-            chroma(color.hex)
-              .set("hsl.h", (chroma(color.hex).get("hsl.h") + 180) % 360)
-              .darken(0.5)
-              .hex()
-          );
-          setAverageColor(color);
-        };
+        if (nowPlaying.name !== response.item.name) {
+          updateImage(response.item.album.images[0].url);
+        }
       },
-      (error) => {
+      () => {
         getAccessToken(localStorage.getItem("refreshToken")).then((data) => {
           spotifyApi.setAccessToken(data);
           getNowPlaying();
         });
       }
     );
+  };
+
+  const updateImage = (art) => {
+    const img = new Image();
+    img.src = art;
+    img.crossOrigin = "Anonymous";
+    img.onload = () => {
+      const color = fac.getColor(img);
+      setCompColor(
+        chroma(color.hex)
+          .set("hsl.h", (chroma(color.hex).get("hsl.h") + 180) % 360)
+          .darken(0.5)
+          .hex()
+      );
+      setAverageColor(color);
+    };
   };
 
   return (
