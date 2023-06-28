@@ -14,7 +14,6 @@ export default function Main() {
   if (averageColor) {
     document.body.style.backgroundColor = averageColor.hex;
   }
-  console.log(averageColor);
 
   useEffect(() => {
     if (!localStorage.getItem("refreshToken")) {
@@ -70,7 +69,7 @@ export default function Main() {
       setCompColor(
         chroma(color.hex)
           .set("hsl.h", (chroma(color.hex).get("hsl.h") + 180) % 360)
-          .darken(0.5)
+
           .hex()
       );
       setAverageColor(color);
@@ -106,7 +105,7 @@ export default function Main() {
             {nowPlaying.artist}
           </div>
         </div>
-      )) || <h3>loading</h3>}
+      )) || <h3>waiting song</h3>}
     </>
   );
 }
