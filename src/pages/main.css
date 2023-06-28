@@ -5,42 +5,6 @@ body {
     overflow: hidden;
 }
 
-.imagediv {
-    margin: auto;
-    width: 25%;
-    height: 100vw;
-}
-
-.img {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin: auto;
-    margin-top: 40%;
-  }
-
-.rectangle{
-    height: 10px;
-    background-color: white;
-    margin:auto;
-    margin-top: 2%;
-    border: 1px;
-    float: right;
-    margin-left: 0;
-} 
-
-.namesong {
-    margin-top: 1%;
-    font-size: 20px;
-}
-
-.smool {
-    margin-top: 2%;
-    height: 10px;
-    background-color:black;
-    width: 3px;
-}
-
-.nameartist {
-
+.menuicon {
+    text-shadow: -1px 0 white, 0 1px white, 5px 0 white, 0 -1px white;
 }

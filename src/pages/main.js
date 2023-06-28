@@ -2,18 +2,13 @@ import React, { useState, useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import { getAccessToken, getRefreshToken } from "../api/spotifyApi";
 import "./main.css";
-import { FastAverageColor } from "fast-average-color";
-import chroma from "chroma-js";
+import { Bars3Icon } from "@heroicons/react/20/solid";
+import Pedro from "./styles/pedro";
+import { Container } from "react-bootstrap";
 
 export default function Main() {
   const [nowPlaying, setNowPlaying] = useState({});
-  const [averageColor, setAverageColor] = useState();
-  const [compColor, setCompColor] = useState([]);
   const spotifyApi = new SpotifyWebApi();
-  const fac = new FastAverageColor();
-  if (averageColor) {
-    document.body.style.backgroundColor = averageColor.hex;
-  }
 
   useEffect(() => {
     if (!localStorage.getItem("refreshToken")) {
@@ -47,9 +42,6 @@ export default function Main() {
           length: response.item.duration_ms,
           currentTime: response.progress_ms,
         });
-        if (nowPlaying.name !== response.item.name) {
-          updateImage(response.item.album.images[0].url);
-        }
       },
       () => {
         getAccessToken(localStorage.getItem("refreshToken")).then((data) => {
@@ -60,52 +52,19 @@ export default function Main() {
     );
   };
 
-  const updateImage = (art) => {
-    const img = new Image();
-    img.src = art;
-    img.crossOrigin = "Anonymous";
-    img.onload = () => {
-      const color = fac.getColor(img);
-      setCompColor(
-        chroma(color.hex)
-          .set("hsl.h", (chroma(color.hex).get("hsl.h") + 180) % 360)
-
-          .hex()
-      );
-      setAverageColor(color);
-    };
-  };
-
   return (
     <>
       {(nowPlaying.name && (
-        <div className="imagediv">
-          <img
-            className="img rounded-4"
-            src={nowPlaying.albumArt}
-            alt="Album"
-          />
-          <div className="d-flex">
-            <div className="smool" />
-            <div
-              style={{
-                width: `${Math.floor(
-                  (nowPlaying.currentTime / nowPlaying.length) * 370
-                )}px`,
-                backgroundColor: `${compColor}`,
-              }}
-              className="rectangle"
-            ></div>
-            <div className="smool" />
-          </div>
-          <div className="text-center namesong text-black">
-            {nowPlaying.name}
-          </div>
-          <div className="text-center nameartist text-black">
-            {nowPlaying.artist}
-          </div>
-        </div>
-      )) || <h3>waiting song</h3>}
+        <>
+          <Container
+            type="button"
+            className="w-auto h-auto position-absolute left-0 top-0 m-4 cursor-pointer"
+          >
+            <Bars3Icon width={35} stroke="white" stroke-width="0.7" />
+          </Container>
+          <Pedro nowPlaying={nowPlaying} />
+        </>
+      )) || <h3>waiting song..</h3>}
     </>
   );
 }
