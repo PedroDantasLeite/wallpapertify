@@ -5,8 +5,6 @@ import chroma from "chroma-js";
 
 export default function Pedro({ nowPlaying }) {
   const [averageColor, setAverageColor] = useState();
-  const [compColor, setCompColor] = useState([]);
-
   if (averageColor) {
     document.body.style.backgroundColor = averageColor.hex;
   }
@@ -19,12 +17,6 @@ export default function Pedro({ nowPlaying }) {
       img.crossOrigin = "Anonymous";
       img.onload = () => {
         const color = fac.getColor(img);
-        setCompColor(
-          chroma(color.hex)
-            .set("hsl.h", (chroma(color.hex).get("hsl.h") + 180) % 360)
-
-            .hex()
-        );
         setAverageColor(color);
       };
     };
@@ -41,9 +33,9 @@ export default function Pedro({ nowPlaying }) {
             width: `${Math.floor(
               (nowPlaying.currentTime / nowPlaying.length) * 305
             )}px`,
-            backgroundColor: `${compColor}`,
+            backgroundColor: "black",
           }}
-          className="rectangle border border-dark"
+          className="rectangle border-top border-bottom border-white"
         ></div>
         <div className="smool" />
       </div>
