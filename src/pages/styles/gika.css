@@ -1,3 +1,9 @@
+.imagediv {
+  margin: auto;
+  width: 25%;
+  height: 100vw;
+}
+
 .img {
     width: 100%;
     height: auto;

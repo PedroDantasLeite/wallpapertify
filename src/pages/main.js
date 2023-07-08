@@ -11,23 +11,20 @@ export default function Main() {
   const [nowPlaying, setNowPlaying] = useState({});
   const [dropdownVisible, setDropodownVisible] = useState(false);
   const [style, setStyle] = useState("Pedro");
-  const spotifyApi = new SpotifyWebApi();
 
   const estilos = ["Pedro", "Gika", "Algm"];
 
   useEffect(() => {
-    if (!localStorage.getItem("refreshToken")) {
-      const fetchRefreshToken = async () => {
+    const spotifyApi = new SpotifyWebApi();
+    const fetchRefreshToken = async () => {
+      if (!localStorage.getItem("refreshToken"))
         await getRefreshToken().then((success) => {
           localStorage.setItem("refreshToken", success.refresh_token);
           spotifyApi.setAccessToken(success.access_token);
         });
-      };
-      fetchRefreshToken();
-    }
-  }, [spotifyApi]);
+      updateSong();
+    };
 
-  useEffect(() => {
     const getNowPlaying = () => {
       spotifyApi.getMyCurrentPlaybackState().then(
         (response) => {
@@ -42,19 +39,20 @@ export default function Main() {
         () => {
           getAccessToken(localStorage.getItem("refreshToken")).then((data) => {
             spotifyApi.setAccessToken(data);
-            getNowPlaying();
           });
         }
       );
     };
+
     const updateSong = () => {
       const interval = setInterval(() => {
         getNowPlaying();
       }, 3000); // update every 3 seconds
       return () => clearInterval(interval);
     };
-    updateSong();
-  }, [spotifyApi]);
+
+    fetchRefreshToken();
+  }, []);
 
   const renderStyle = () => {
     if (!nowPlaying.name) return <h3>waiting song..</h3>;
@@ -76,7 +74,7 @@ export default function Main() {
             onClick={() => setDropodownVisible(!dropdownVisible)}
             width={35}
             stroke="white"
-            stroke-width="0.6"
+            strokeWidth="0.6"
           />
         </span>
         {dropdownVisible && (
