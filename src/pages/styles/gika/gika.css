@@ -1,0 +1,25 @@
+.imga {
+  width: 20%;
+}
+
+.imagediva {
+  margin-top: 20%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  flex-shrink: 0px;
+  gap: 10px;
+}
+
+.shoot {
+  margin: auto;
+}
+
+.letss {
+  width: 40%;
+}
+
+.player {
+  background-color: black;
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import chroma from "chroma-js";
+import "./gika.css";
 
 export default function Gika({ nowPlaying }) {
   const [colors, setColors] = useState([]);
@@ -13,10 +14,13 @@ export default function Gika({ nowPlaying }) {
   }, []);
 
   return (
-    <>
-      <div className="imagediv">
-        <img src={nowPlaying.albumArt} className="img rounded-4" />
+    <div className="imagediva border">
+      <img src={nowPlaying.albumArt} className="imga rounded-4" />
+      <div className="letss">
+        <div className="">{nowPlaying.name}</div>
+        <div>{nowPlaying.artist}</div>
+        <div></div>
       </div>
-    </>
+    </div>
   );
 }

@@ -3,9 +3,9 @@ import SpotifyWebApi from "spotify-web-api-js";
 import { getAccessToken, getRefreshToken } from "../api/spotifyApi";
 import "./main.css";
 import { Bars3Icon } from "@heroicons/react/20/solid";
-import Pedro from "./styles/pedro";
 import { Container } from "react-bootstrap";
-import Gika from "./styles/gika";
+import Pedro from "./styles/pedro/pedro";
+import Gika from "./styles/gika/gika";
 
 export default function Main() {
   const [nowPlaying, setNowPlaying] = useState({});
