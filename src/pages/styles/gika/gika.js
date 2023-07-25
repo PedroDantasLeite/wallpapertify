@@ -17,9 +17,17 @@ export default function Gika({ nowPlaying }) {
     <div className="imagediva border">
       <img src={nowPlaying.albumArt} className="imga rounded-4" />
       <div className="letss">
-        <div className="">{nowPlaying.name}</div>
-        <div>{nowPlaying.artist}</div>
-        <div></div>
+        <div className="song">{nowPlaying.name}</div>
+        <div className="guy">{nowPlaying.artist}</div>
+        <div
+          className="rectangla rounded"
+          style={{
+            width: `${Math.floor(
+              (nowPlaying.currentTime / nowPlaying.length) * 305
+            )}px`,
+            backgroundColor: "black",
+          }}
+        ></div>
       </div>
     </div>
   );
