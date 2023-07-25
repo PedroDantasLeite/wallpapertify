@@ -14,10 +14,10 @@ export default function Gika({ nowPlaying }) {
   }, []);
 
   return (
-    <div className="imagediva border">
+    <div className="imagediva border rounded-4">
       <img src={nowPlaying.albumArt} className="imga rounded-4" />
       <div className="letss">
-        <div className="song">{nowPlaying.name}</div>
+        <div className="song max-w-fit">{nowPlaying.name}</div>
         <div className="guy">{nowPlaying.artist}</div>
         <div
           className="rectangla rounded"
