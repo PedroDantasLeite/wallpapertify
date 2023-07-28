@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"), url(./fonts/Roboto-Regular.ttf) format("truetype");
+}
+
+/*
+@font-face {
+  font-family: "Roboto";
+  font-weight: 900;
+  src: local("Roboto"), url(./fonts/Roboto-Bold.otf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 900;
+  src: local("Roboto"), url(./fonts/Roboto-Black.otf) format("truetype");
+}
+*/

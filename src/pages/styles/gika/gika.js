@@ -13,21 +13,40 @@ export default function Gika({ nowPlaying }) {
     // console.log(image);
   }, []);
 
+  function timeLeft(millis) {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  }
+
   return (
-    <div className="imagediva border rounded-4">
+    <div
+      className="imagediva rounded-4"
+      style={{ boxShadow: "0px 4px 4px 0px" }}
+    >
       <img src={nowPlaying.albumArt} className="imga rounded-4" />
       <div className="letss">
         <div className="song ">{nowPlaying.name}</div>
         <div className="guy">{nowPlaying.artist}</div>
-        <div
-          className="rectangla rounded"
-          style={{
-            width: `${Math.floor(
-              (nowPlaying.currentTime / nowPlaying.length) * 305
-            )}px`,
-            backgroundColor: "black",
-          }}
-        ></div>
+        <span className="acima">
+          <div className="rectangla1 rounded bg-white" />
+          <div
+            className="rectangla2 rounded"
+            style={{
+              width: `${Math.floor(
+                (nowPlaying.currentTime / nowPlaying.length) * 100
+              )}%`,
+              backgroundColor: "black",
+            }}
+          />
+        </span>
+        <div className="meucu">
+          <div className="pequininihi">{timeLeft(nowPlaying.currentTime)}</div>
+          <div className="pequininihi">
+            {"-" + timeLeft(nowPlaying.length - nowPlaying.currentTime)}
+          </div>
+        </div>
+        <div></div>
       </div>
     </div>
   );

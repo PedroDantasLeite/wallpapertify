@@ -7,25 +7,35 @@
   padding: 10px;
   display: flex;
   justify-content: center;
-  height: auto;
   flex-shrink: 0px;
   gap: 10px;
-  width: fit-content;
+  height: max-content;
+  width: max-content;
   margin-right: auto;
   margin-left: auto;
 }
 
 .letss {
-  width: 60%;
+  width: 50%;
 }
 
 .player {
   background-color: black;
 }
 
-.rectangla {
-  height: 5px;
-  margin-left: 0;
+.rectangla1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 7px;
+  width: 100%;
+  z-index: 6;
+}
+
+.rectangla2 {
+  position: relative;
+  height: 7px;
+  z-index: 10;
 }
 
 .song {
@@ -33,13 +43,41 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  word-break: keep-all;
+  word-break: normal;
+  font-family: Roboto;
 }
 
 .guy {
-  font-size: 20px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-  word-break: keep-all;
+  font-family: Roboto;
+  margin-bottom: 6px;
+}
+
+.pequininihi {
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  font-family: Roboto;
+}
+
+.meucu {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.acima {
+  position: relative;
+  margin: 10px;
+}
+
+.circlo {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: blanchedalmond;
 }
