@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
-import chroma from "chroma-js";
 import "./gika.css";
+import { getColors } from "react-native-image-colors";
 
 export default function Gika({ nowPlaying }) {
-  const [colors, setColors] = useState([]);
-
-  // document.body.style.backgroundColor = colors[0];
+  const [colors, setColors] = useState({
+    darkMuted: null,
+    darkVibrant: null,
+    dominant: null,
+    lightMuted: null,
+    lightVibrant: null,
+    muted: null,
+    vibrant: null,
+  });
 
   useEffect(() => {
-    // let image = document.getElementById("image");
-    // setColors(chroma.scale().colors(5));
-    // console.log(image);
-  }, []);
+    getColors(nowPlaying.albumArt, {
+      fallback: "#228B22",
+      cache: true,
+      key: nowPlaying.albumArt,
+    }).then(setColors);
+    document.body.style.backgroundColor = colors.muted;
+  }, [colors, nowPlaying.albumArt]);
 
   function timeLeft(millis) {
     var minutes = Math.floor(millis / 60000);
@@ -22,12 +31,19 @@ export default function Gika({ nowPlaying }) {
   return (
     <div
       className="imagediva rounded-4"
-      style={{ boxShadow: "0px 4px 4px 0px" }}
+      style={{
+        boxShadow: "0px 4px 4px 0px",
+        backgroundColor: colors.lightMuted,
+      }}
     >
-      <img src={nowPlaying.albumArt} className="imga rounded-4" />
+      <img src={nowPlaying.albumArt} className="imga rounded-4" alt="album" />
       <div className="letss">
-        <div className="song ">{nowPlaying.name}</div>
-        <div className="guy">{nowPlaying.artist}</div>
+        <div className="song" style={{ color: colors.muted }}>
+          {nowPlaying.name}
+        </div>
+        <div className="guy" style={{ color: colors.muted }}>
+          {nowPlaying.artist}
+        </div>
         <span className="acima">
           <div className="rectangla1 rounded bg-white" />
           <div
@@ -36,13 +52,15 @@ export default function Gika({ nowPlaying }) {
               width: `${Math.floor(
                 (nowPlaying.currentTime / nowPlaying.length) * 100
               )}%`,
-              backgroundColor: "black",
+              backgroundColor: colors.muted,
             }}
           />
         </span>
         <div className="meucu">
-          <div className="pequininihi">{timeLeft(nowPlaying.currentTime)}</div>
-          <div className="pequininihi">
+          <div className="pequininihi" style={{ color: colors.muted }}>
+            {timeLeft(nowPlaying.currentTime)}
+          </div>
+          <div className="pequininihi" style={{ color: colors.muted }}>
             {"-" + timeLeft(nowPlaying.length - nowPlaying.currentTime)}
           </div>
         </div>

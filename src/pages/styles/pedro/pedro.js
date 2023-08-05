@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./pedro.css";
 import { FastAverageColor } from "fast-average-color";
-import chroma from "chroma-js";
 
 export default function Pedro({ nowPlaying }) {
   const [averageColor, setAverageColor] = useState();

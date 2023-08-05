@@ -1,5 +1,6 @@
 .imga {
-  width: 30%;
+  width: 350px;
+  height: auto;
 }
 
 .imagediva {
@@ -10,13 +11,13 @@
   flex-shrink: 0px;
   gap: 10px;
   height: max-content;
-  width: max-content;
+  width: min-content;
   margin-right: auto;
   margin-left: auto;
 }
 
 .letss {
-  width: 50%;
+  width: 600px;
 }
 
 .player {
@@ -72,7 +73,7 @@
 
 .acima {
   position: relative;
-  margin: 10px;
+  display: grid;
 }
 
 .circlo {
