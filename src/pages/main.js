@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import { getAccessToken, getRefreshToken } from "../api/spotifyApi";
 import "./main.css";
@@ -14,8 +14,8 @@ export default function Main() {
 
   const estilos = ["Pedro", "Gika", "Algm"];
 
+  const spotifyApi = useMemo(() => new SpotifyWebApi(), []);
   useEffect(() => {
-    const spotifyApi = new SpotifyWebApi();
     const fetchRefreshToken = async () => {
       if (!localStorage.getItem("refreshToken"))
         await getRefreshToken().then((success) => {
@@ -34,6 +34,7 @@ export default function Main() {
             albumArt: response.item.album.images[0].url,
             length: response.item.duration_ms,
             currentTime: response.progress_ms,
+            volume: response.device.volume_percent,
           });
         },
         () => {
@@ -52,10 +53,11 @@ export default function Main() {
     };
 
     fetchRefreshToken();
-  }, []);
+  }, [spotifyApi]);
 
   const renderStyle = () => {
-    if (!nowPlaying.name) return <h3>waiting song..</h3>;
+    if (!nowPlaying.name)
+      return <h3 className="margin-auto">waiting song..</h3>;
     switch (style) {
       case "Pedro":
         return <Pedro nowPlaying={nowPlaying} />;
@@ -65,6 +67,10 @@ export default function Main() {
         return <h3>How?</h3>;
     }
   };
+
+  function pauseSong() {
+    spotifyApi.pause();
+  }
 
   return (
     <>

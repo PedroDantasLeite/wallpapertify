@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./gika.css";
 import { getColors } from "react-native-image-colors";
+import {
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
+  PlayPauseIcon,
+  SpeakerWaveIcon,
+} from "@heroicons/react/20/solid";
 
 export default function Gika({ nowPlaying }) {
   const [colors, setColors] = useState({
@@ -44,7 +50,7 @@ export default function Gika({ nowPlaying }) {
         <div className="guy" style={{ color: colors.muted }}>
           {nowPlaying.artist}
         </div>
-        <span className="acima">
+        <div className="acima">
           <div className="rectangla1 rounded bg-white" />
           <div
             className="rectangla2 rounded"
@@ -55,7 +61,7 @@ export default function Gika({ nowPlaying }) {
               backgroundColor: colors.muted,
             }}
           />
-        </span>
+        </div>
         <div className="meucu">
           <div className="pequininihi" style={{ color: colors.muted }}>
             {timeLeft(nowPlaying.currentTime)}
@@ -64,7 +70,42 @@ export default function Gika({ nowPlaying }) {
             {"-" + timeLeft(nowPlaying.length - nowPlaying.currentTime)}
           </div>
         </div>
-        <div></div>
+        <div className="comoseterido">
+          <ChevronDoubleLeftIcon
+            className="player"
+            style={{
+              backgroundColor: colors.lightMuted,
+              color: colors.muted,
+            }}
+          />
+          <PlayPauseIcon
+            className="player"
+            style={{
+              backgroundColor: colors.lightMuted,
+              color: colors.muted,
+            }}
+          />
+          <ChevronDoubleRightIcon
+            className="player"
+            style={{
+              backgroundColor: colors.lightMuted,
+              color: colors.muted,
+            }}
+          />
+        </div>
+        <div className="flexadaa">
+          <SpeakerWaveIcon className="somzin" style={{ color: colors.muted }} />
+          <div className="acima">
+            <div className="rectangla1 rounded bg-white" />
+            <div
+              className="rectangla2 rounded"
+              style={{
+                width: `${nowPlaying.volume}%`,
+                backgroundColor: colors.muted,
+              }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
