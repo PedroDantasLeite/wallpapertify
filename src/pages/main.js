@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import { getAccessToken, getRefreshToken } from "../api/spotifyApi";
 import "./main.css";
-import { Bars3Icon } from "@heroicons/react/20/solid";
+import { Bars3Icon, InformationCircleIcon } from "@heroicons/react/20/solid";
 import { Container } from "react-bootstrap";
 import Pedro from "./styles/pedro/pedro";
 import Gika from "./styles/gika/gika";
@@ -10,11 +10,12 @@ import Gika from "./styles/gika/gika";
 export default function Main() {
   const [nowPlaying, setNowPlaying] = useState({});
   const [dropdownVisible, setDropodownVisible] = useState(false);
-  const [style, setStyle] = useState("Pedro");
-
-  const estilos = ["Pedro", "Gika", "Algm"];
+  const [MadeBy, setMadeBy] = useState(false);
+  const [style, setStyle] = useState("Gika");
+  const estilos = ["Pedro", "Gika"];
 
   const spotifyApi = useMemo(() => new SpotifyWebApi(), []);
+
   useEffect(() => {
     const fetchRefreshToken = async () => {
       if (!localStorage.getItem("refreshToken"))
@@ -48,7 +49,7 @@ export default function Main() {
     const updateSong = () => {
       const interval = setInterval(() => {
         getNowPlaying();
-      }, 3000); // update every 3 seconds
+      }, 1000); // update every  second
       return () => clearInterval(interval);
     };
 
@@ -57,7 +58,7 @@ export default function Main() {
 
   const renderStyle = () => {
     if (!nowPlaying.name)
-      return <h3 className="margin-auto">waiting song..</h3>;
+      return <h3 className="margin-auto autozada">waiting song..</h3>;
     switch (style) {
       case "Pedro":
         return <Pedro nowPlaying={nowPlaying} />;
@@ -74,21 +75,20 @@ export default function Main() {
 
   return (
     <>
-      <Container className="w-auto h-auto position-absolute left-0 top-0 m-4">
-        <span className="cursor-pointer w-auto h-auto" type="button">
+      <Container className="w-auto h-auto position-absolute left-0 d-flex top-0 m-4">
+        <span className="cursor-pointer menuicon w-auto h-auto" type="button">
           <Bars3Icon
             onClick={() => setDropodownVisible(!dropdownVisible)}
-            width={35}
-            stroke="white"
-            strokeWidth="0.6"
+            width={40}
+            style={{ color: "white" }}
           />
         </span>
         {dropdownVisible && (
-          <div className="text-center w-max h-auto mt-2 bg-white rounded">
+          <div className="text-center px-2 w-max justify-content-center d-flex h-auto bg-white rounded">
             {estilos.map((pessoa) => (
               <div
                 type="button"
-                className="w-max py-1 mx-4 cursor-pointe color bg-gray-300"
+                className="w-max fontado px-2 py-1 cursor-pointer bg-gray-300"
                 onClick={() => setStyle(pessoa)}
                 key={pessoa}
               >
@@ -98,6 +98,17 @@ export default function Main() {
           </div>
         )}
       </Container>
+      <Container className="w-auto h-auto position-absolute left-0 text-center topalgo m-4">
+        <span className="cursor-pointer menuicon w-auto h-auto" type="button">
+          <InformationCircleIcon
+            onMouseEnter={() => setMadeBy(true)}
+            onMouseLeave={() => setMadeBy(false)}
+            width={40}
+            style={{ color: "white" }}
+          />
+        </span>
+      </Container>
+      {MadeBy && <div className="w-auto h-auto">Made By Pedro</div>}
       {renderStyle()}
     </>
   );

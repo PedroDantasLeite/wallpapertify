@@ -10,13 +10,13 @@ import {
 
 export default function Gika({ nowPlaying }) {
   const [colors, setColors] = useState({
-    darkMuted: null,
-    darkVibrant: null,
-    dominant: null,
-    lightMuted: null,
-    lightVibrant: null,
     muted: null,
+    darkMuted: null,
+    lightMuted: null,
     vibrant: null,
+    darkVibrant: null,
+    lightVibrant: null,
+    dominant: null,
   });
 
   useEffect(() => {
@@ -70,40 +70,45 @@ export default function Gika({ nowPlaying }) {
             {"-" + timeLeft(nowPlaying.length - nowPlaying.currentTime)}
           </div>
         </div>
-        <div className="comoseterido">
-          <ChevronDoubleLeftIcon
-            className="player"
-            style={{
-              backgroundColor: colors.lightMuted,
-              color: colors.muted,
-            }}
-          />
-          <PlayPauseIcon
-            className="player"
-            style={{
-              backgroundColor: colors.lightMuted,
-              color: colors.muted,
-            }}
-          />
-          <ChevronDoubleRightIcon
-            className="player"
-            style={{
-              backgroundColor: colors.lightMuted,
-              color: colors.muted,
-            }}
-          />
-        </div>
-        <div className="flexadaa">
-          <SpeakerWaveIcon className="somzin" style={{ color: colors.muted }} />
-          <div className="acima">
-            <div className="rectangla1 rounded bg-white" />
-            <div
-              className="rectangla2 rounded"
+        <div className="affffe">
+          <div className="comoseterido">
+            <ChevronDoubleLeftIcon
+              className="player"
               style={{
-                width: `${nowPlaying.volume}%`,
-                backgroundColor: colors.muted,
+                backgroundColor: colors.lightMuted,
+                color: colors.muted,
               }}
             />
+            <PlayPauseIcon
+              className="player"
+              style={{
+                backgroundColor: colors.lightMuted,
+                color: colors.muted,
+              }}
+            />
+            <ChevronDoubleRightIcon
+              className="player"
+              style={{
+                backgroundColor: colors.lightMuted,
+                color: colors.muted,
+              }}
+            />
+          </div>
+          <div className="flexadaa">
+            <SpeakerWaveIcon
+              className="somzin"
+              style={{ color: colors.muted }}
+            />
+            <div className="acima">
+              <div className="rectangla1 rounded bg-white" />
+              <div
+                className="rectangla2 rounded"
+                style={{
+                  width: `${nowPlaying.volume}%`,
+                  backgroundColor: colors.muted,
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

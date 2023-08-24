@@ -4,6 +4,14 @@ body {
   overflow: hidden;
 }
 
-.menuicon {
-  text-shadow: -1px 0 white, 0 1px white, 5px 0 white, 0 -1px white;
+.fontado {
+  font-size: large;
+}
+
+.topalgo {
+  top: 10%;
+}
+
+.autozada {
+  margin: auto;
 }
