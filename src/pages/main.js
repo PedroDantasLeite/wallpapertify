@@ -6,11 +6,12 @@ import { Bars3Icon, InformationCircleIcon } from "@heroicons/react/20/solid";
 import { Container } from "react-bootstrap";
 import Pedro from "./styles/pedro/pedro";
 import Gika from "./styles/gika/gika";
+import MadeBy from "../components/madeBy";
 
 export default function Main() {
   const [nowPlaying, setNowPlaying] = useState({});
   const [dropdownVisible, setDropodownVisible] = useState(false);
-  const [MadeBy, setMadeBy] = useState(false);
+  const [madeByVisible, setMadeByVisible] = useState(false);
   const [style, setStyle] = useState("Gika");
   const estilos = ["Pedro", "Gika"];
 
@@ -101,14 +102,14 @@ export default function Main() {
       <Container className="w-auto h-auto position-absolute left-0 text-center topalgo m-4">
         <span className="cursor-pointer menuicon w-auto h-auto" type="button">
           <InformationCircleIcon
-            onMouseEnter={() => setMadeBy(true)}
-            onMouseLeave={() => setMadeBy(false)}
+            onMouseEnter={() => setMadeByVisible(true)}
+            onMouseLeave={() => setMadeByVisible(false)}
             width={40}
             style={{ color: "white" }}
           />
         </span>
       </Container>
-      {MadeBy && <div className="w-auto h-auto">Made By Pedro</div>}
+      {madeByVisible && <MadeBy />}
       {renderStyle()}
     </>
   );

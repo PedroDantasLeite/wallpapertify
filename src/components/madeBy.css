@@ -1,0 +1,18 @@
+/* MadeBy.css */
+.madeByCard {
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.madeByContent {
+  font-size: 18px;
+  color: #333;
+}
