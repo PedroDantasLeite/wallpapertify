@@ -4,14 +4,21 @@ body {
   overflow: hidden;
 }
 
-.fontado {
-  font-size: large;
-}
-
 .topalgo {
   top: 10%;
 }
 
 .autozada {
   margin: auto;
+}
+
+.padzada {
+  display: flex;
+}
+
+.fontado {
+  font-family: Roboto;
+  font-size: large;
+  text-align: center;
+  width: auto;
 }

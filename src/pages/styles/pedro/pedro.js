@@ -34,8 +34,8 @@ export default function Pedro({ nowPlaying }) {
             )}px`,
             backgroundColor: "black",
           }}
-          className="rectangle border-top border-bottom border-white"
-        ></div>
+          className="rectangle "
+        />
         <div className="smool" />
       </div>
       <div className="text-center namesong text-white border-white border-2">

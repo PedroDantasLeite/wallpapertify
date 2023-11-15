@@ -44,71 +44,76 @@ export default function Gika({ nowPlaying }) {
     >
       <img src={nowPlaying.albumArt} className="imga rounded-4" alt="album" />
       <div className="letss">
-        <div className="song" style={{ color: colors.muted }}>
-          {nowPlaying.name}
-        </div>
-        <div className="guy" style={{ color: colors.muted }}>
-          {nowPlaying.artist}
-        </div>
-        <div className="acima">
-          <div className="rectangla1 rounded bg-white" />
+        <div>
           <div
-            className="rectangla2 rounded"
+            className="song"
             style={{
-              width: `${Math.floor(
-                (nowPlaying.currentTime / nowPlaying.length) * 100
-              )}%`,
-              backgroundColor: colors.muted,
+              color: colors.muted,
+              fontSize: nowPlaying.name.length > 46 ? "36px" : "48px",
+            }}
+          >
+            {nowPlaying.name}
+          </div>
+          <div className="guy" style={{ color: colors.muted }}>
+            {nowPlaying.artist}
+          </div>
+        </div>
+        <div>
+          <div className="acima">
+            <div className="rectangla1 rounded bg-white" />
+            <div
+              className="rectangla2 rounded"
+              style={{
+                width: `${Math.floor(
+                  (nowPlaying.currentTime / nowPlaying.length) * 100
+                )}%`,
+                backgroundColor: colors.muted,
+              }}
+            />
+          </div>
+          <div className="meucu">
+            <div className="pequininihi" style={{ color: colors.muted }}>
+              {timeLeft(nowPlaying.currentTime)}
+            </div>
+            <div className="pequininihi" style={{ color: colors.muted }}>
+              {"-" + timeLeft(nowPlaying.length - nowPlaying.currentTime)}
+            </div>
+          </div>
+        </div>
+        <div className="comoseterido">
+          <ChevronDoubleLeftIcon
+            className="player"
+            style={{
+              backgroundColor: colors.lightMuted,
+              color: colors.muted,
+            }}
+          />
+          <PlayPauseIcon
+            className="player"
+            style={{
+              backgroundColor: colors.lightMuted,
+              color: colors.muted,
+            }}
+          />
+          <ChevronDoubleRightIcon
+            className="player"
+            style={{
+              backgroundColor: colors.lightMuted,
+              color: colors.muted,
             }}
           />
         </div>
-        <div className="meucu">
-          <div className="pequininihi" style={{ color: colors.muted }}>
-            {timeLeft(nowPlaying.currentTime)}
-          </div>
-          <div className="pequininihi" style={{ color: colors.muted }}>
-            {"-" + timeLeft(nowPlaying.length - nowPlaying.currentTime)}
-          </div>
-        </div>
-        <div className="affffe">
-          <div className="comoseterido">
-            <ChevronDoubleLeftIcon
-              className="player"
+        <div className="flexadaa">
+          <SpeakerWaveIcon className="somzin" style={{ color: colors.muted }} />
+          <div className="acima">
+            <div className="rectangla1 rounded bg-white" />
+            <div
+              className="rectangla2 rounded"
               style={{
-                backgroundColor: colors.lightMuted,
-                color: colors.muted,
+                width: `${nowPlaying.volume}%`,
+                backgroundColor: colors.muted,
               }}
             />
-            <PlayPauseIcon
-              className="player"
-              style={{
-                backgroundColor: colors.lightMuted,
-                color: colors.muted,
-              }}
-            />
-            <ChevronDoubleRightIcon
-              className="player"
-              style={{
-                backgroundColor: colors.lightMuted,
-                color: colors.muted,
-              }}
-            />
-          </div>
-          <div className="flexadaa">
-            <SpeakerWaveIcon
-              className="somzin"
-              style={{ color: colors.muted }}
-            />
-            <div className="acima">
-              <div className="rectangla1 rounded bg-white" />
-              <div
-                className="rectangla2 rounded"
-                style={{
-                  width: `${nowPlaying.volume}%`,
-                  backgroundColor: colors.muted,
-                }}
-              />
-            </div>
           </div>
         </div>
       </div>

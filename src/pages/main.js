@@ -84,11 +84,11 @@ export default function Main() {
           />
         </span>
         {dropdownVisible && (
-          <div className="text-center px-2 w-max justify-content-center d-flex h-auto bg-white rounded">
+          <div className="text-center px-2 w-max justify-content-center h-auto bg-white padzada rounded">
             {estilos.map((pessoa) => (
               <div
                 type="button"
-                className="w-max fontado px-2 py-1 cursor-pointer bg-gray-300"
+                className="fontado px-2 py-1 cursor-pointer"
                 onClick={() => setStyle(pessoa)}
                 key={pessoa}
               >

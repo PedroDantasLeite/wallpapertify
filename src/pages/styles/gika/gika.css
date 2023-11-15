@@ -1,6 +1,6 @@
 .imga {
   width: 350px;
-  height: auto;
+  height: 340px;
 }
 
 .imagediva {
@@ -14,13 +14,17 @@
   width: min-content;
   margin-right: auto;
   margin-left: auto;
+  max-height: 360px;
+  overflow: hidden;
 }
 
 .letss {
   width: 550px;
-  padding: 30px;
-  padding-top: auto;
-  padding-bottom: auto;
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .rectangla1 {
@@ -38,7 +42,6 @@
 }
 
 .song {
-  font-size: 48px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -86,6 +89,7 @@
 .flexadaa {
   position: relative;
   display: flex;
+
   gap: 10px;
   padding: 10px 0px;
   flex-shrink: 0;
