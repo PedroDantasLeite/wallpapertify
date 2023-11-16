@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./gika.css";
 import { getColors } from "react-native-image-colors";
 import {
@@ -19,14 +19,19 @@ export default function Gika({ nowPlaying }) {
     dominant: null,
   });
 
-  useEffect(() => {
-    getColors(nowPlaying.albumArt, {
+  const updateColors = useCallback(async () => {
+    const newColors = await getColors(nowPlaying.albumArt, {
       fallback: "#228B22",
       cache: true,
       key: nowPlaying.albumArt,
-    }).then(setColors);
-    document.body.style.backgroundColor = colors.muted;
-  }, [colors, nowPlaying.albumArt]);
+    });
+    setColors(newColors);
+    document.body.style.backgroundColor = newColors.muted;
+  }, [nowPlaying.albumArt]);
+
+  useEffect(() => {
+    updateColors();
+  }, [updateColors]);
 
   function timeLeft(millis) {
     var minutes = Math.floor(millis / 60000);
@@ -104,7 +109,12 @@ export default function Gika({ nowPlaying }) {
           />
         </div>
         <div className="flexadaa">
-          <SpeakerWaveIcon className="somzin" style={{ color: colors.muted }} />
+          <span className="spandosom">
+            <SpeakerWaveIcon
+              className="somzin"
+              style={{ color: colors.muted }}
+            />
+          </span>
           <div className="acima">
             <div className="rectangla1 rounded bg-white" />
             <div

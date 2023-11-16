@@ -28,7 +28,6 @@
     1px 1px 0 #000;
   text-align: center;
   font-family: Roboto;
-  word-break: break-all;
 }
 
 .nameartist {
@@ -43,4 +42,8 @@
   height: 10px;
   background-color: black;
   width: 3px;
+}
+
+.acima {
+  margin-top: 30px;
 }

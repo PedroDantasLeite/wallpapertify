@@ -25,18 +25,17 @@ export default function Pedro({ nowPlaying }) {
   return (
     <div className="imagediv">
       <img className="img rounded-4" src={nowPlaying.albumArt} alt="Album" />
-      <div className="d-flex">
-        <div className="smool" />
+      <div className="acima">
+        <div className="rectangla1 bg-white" />
         <div
+          className="rectangla2"
           style={{
             width: `${Math.floor(
-              (nowPlaying.currentTime / nowPlaying.length) * 305
-            )}px`,
+              (nowPlaying.currentTime / nowPlaying.length) * 100
+            )}%`,
             backgroundColor: "black",
           }}
-          className="rectangle "
         />
-        <div className="smool" />
       </div>
       <div className="text-center namesong text-white border-white border-2">
         {nowPlaying.name}

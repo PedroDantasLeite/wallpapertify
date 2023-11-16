@@ -37,6 +37,7 @@ export default function Main() {
             length: response.item.duration_ms,
             currentTime: response.progress_ms,
             volume: response.device.volume_percent,
+            isPlaying: response.is_playing,
           });
         },
         () => {
@@ -70,8 +71,8 @@ export default function Main() {
     }
   };
 
-  function pauseSong() {
-    spotifyApi.pause();
+  function pauseResume() {
+    nowPlaying.isPlaying ? spotifyApi.pause() : spotifyApi.play();
   }
 
   return (
