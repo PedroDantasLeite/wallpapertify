@@ -3,7 +3,6 @@ import SpotifyWebApi from "spotify-web-api-js";
 import { getAccessToken, getRefreshToken } from "../api/spotifyApi";
 import "./main.css";
 import { Bars3Icon, InformationCircleIcon } from "@heroicons/react/20/solid";
-import { Container } from "react-bootstrap";
 import Pedro from "./styles/pedro/pedro";
 import Gika from "./styles/gika/gika";
 import MadeBy from "../components/madeBy";
@@ -13,6 +12,7 @@ export default function Main() {
   const [dropdownVisible, setDropodownVisible] = useState(false);
   const [madeByVisible, setMadeByVisible] = useState(false);
   const [style, setStyle] = useState("Gika");
+
   const estilos = ["Pedro", "Gika"];
 
   const spotifyApi = useMemo(() => new SpotifyWebApi(), []);
@@ -60,7 +60,7 @@ export default function Main() {
 
   const renderStyle = () => {
     if (!nowPlaying.name)
-      return <h3 className="margin-auto autozada">waiting song..</h3>;
+      return <h3 className="margin-auto autozada">Awaiting song</h3>;
     switch (style) {
       case "Pedro":
         return <Pedro nowPlaying={nowPlaying} />;
@@ -75,41 +75,57 @@ export default function Main() {
     nowPlaying.isPlaying ? spotifyApi.pause() : spotifyApi.play();
   }
 
+  function toggleDropdown() {
+    setDropodownVisible(!dropdownVisible);
+    console.log("Dropdown Visible:", !dropdownVisible);
+  }
+
+  const StyleComponent = ({ pessoa }) => {
+    const index = estilos.indexOf(pessoa);
+
+    return (
+      <div
+        className={`d-flex align-items-center justify-content-center bg-white estilos 
+        ${index === 0 ? "leftround" : "rightround"} ${
+          dropdownVisible ? "slide-in" : "slide-out"
+        } `}
+        onClick={() => setStyle(pessoa)}
+        type="button"
+      >
+        <span type="button" className="fontado text-center" key={pessoa}>
+          {pessoa}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <>
-      <Container className="w-auto h-auto position-absolute left-0 d-flex top-0 m-4">
-        <span className="cursor-pointer menuicon w-auto h-auto" type="button">
-          <Bars3Icon
-            onClick={() => setDropodownVisible(!dropdownVisible)}
-            width={40}
-            style={{ color: "white" }}
-          />
+      <div
+        className="d-flex justify-content-center position-absolute left-0 top-0 m-4"
+        style={{ top: "16px" }}
+      >
+        <span
+          className="cursor-pointer w-auto h-auto"
+          type="button"
+          onClick={toggleDropdown}
+        >
+          <Bars3Icon width={40} style={{ color: "white" }} />
         </span>
-        {dropdownVisible && (
-          <div className="text-center px-2 w-max justify-content-center h-auto bg-white padzada rounded">
-            {estilos.map((pessoa) => (
-              <div
-                type="button"
-                className="fontado px-2 py-1 cursor-pointer"
-                onClick={() => setStyle(pessoa)}
-                key={pessoa}
-              >
-                {pessoa}
-              </div>
-            ))}
-          </div>
-        )}
-      </Container>
-      <Container className="w-auto h-auto position-absolute left-0 text-center topalgo m-4">
-        <span className="cursor-pointer menuicon w-auto h-auto" type="button">
-          <InformationCircleIcon
-            onMouseEnter={() => setMadeByVisible(true)}
-            onMouseLeave={() => setMadeByVisible(false)}
-            width={40}
-            style={{ color: "white" }}
-          />
-        </span>
-      </Container>
+        {dropdownVisible &&
+          estilos.map((pessoa) => <StyleComponent pessoa={pessoa} />)}
+      </div>
+      <span
+        className="cursor-pointer w-auto h-auto position-absolute left-0 text-center topalgo m-4"
+        type="button"
+      >
+        <InformationCircleIcon
+          onMouseEnter={() => setMadeByVisible(true)}
+          onMouseLeave={() => setMadeByVisible(false)}
+          width={40}
+          style={{ color: "white" }}
+        />
+      </span>
       {madeByVisible && <MadeBy />}
       {renderStyle()}
     </>

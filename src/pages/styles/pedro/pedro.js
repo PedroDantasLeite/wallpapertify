@@ -26,9 +26,9 @@ export default function Pedro({ nowPlaying }) {
     <div className="imagediv">
       <img className="img rounded-4" src={nowPlaying.albumArt} alt="Album" />
       <div className="acima">
-        <div className="rectangla1 bg-white" />
+        <div className="rectangla1 bg-white rounded" />
         <div
-          className="rectangla2"
+          className="rectangla2 rounded"
           style={{
             width: `${Math.floor(
               (nowPlaying.currentTime / nowPlaying.length) * 100
