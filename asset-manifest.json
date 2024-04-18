@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/wallpapertify/static/css/main.c396a854.css",
+    "main.js": "/wallpapertify/static/js/main.18d9776a.js",
+    "static/js/787.1a8eaa0b.chunk.js": "/wallpapertify/static/js/787.1a8eaa0b.chunk.js",
+    "static/media/Roboto-Regular.ttf": "/wallpapertify/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "index.html": "/wallpapertify/index.html",
+    "main.c396a854.css.map": "/wallpapertify/static/css/main.c396a854.css.map",
+    "main.18d9776a.js.map": "/wallpapertify/static/js/main.18d9776a.js.map",
+    "787.1a8eaa0b.chunk.js.map": "/wallpapertify/static/js/787.1a8eaa0b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c396a854.css",
+    "static/js/main.18d9776a.js"
+  ]
+}
