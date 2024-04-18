@@ -1,18 +1,20 @@
-/* MadeBy.css */
 .madeByCard {
   position: absolute;
-  width: 200px;
-  height: 100px;
-  background-color: #f8f9fa;
+  width: 150px;
+  height: 75px;
+  background-color: whitesmoke; /* light grey */
+  border: 5px solid beige; /* dark grey */
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-  display: flex;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-  transition: all 0.3s ease;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
 }
 
 .madeByContent {
-  font-size: 18px;
-  color: #333;
+  font-size: 14px;
+  color: black;
 }

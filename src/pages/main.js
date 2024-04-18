@@ -9,11 +9,11 @@ import MadeBy from "../components/madeBy";
 
 export default function Main() {
   const [nowPlaying, setNowPlaying] = useState({});
-  const [dropdownVisible, setDropodownVisible] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const [madeByVisible, setMadeByVisible] = useState(false);
   const [style, setStyle] = useState("Gika");
 
-  const estilos = ["Pedro", "Gika"];
+  const estilos = ["Gika", "Pedro"];
 
   const spotifyApi = useMemo(() => new SpotifyWebApi(), []);
 
@@ -75,26 +75,19 @@ export default function Main() {
     nowPlaying.isPlaying ? spotifyApi.pause() : spotifyApi.play();
   }
 
-  function toggleDropdown() {
-    setDropodownVisible(!dropdownVisible);
-    console.log("Dropdown Visible:", !dropdownVisible);
-  }
-
   const StyleComponent = ({ pessoa }) => {
     const index = estilos.indexOf(pessoa);
 
     return (
       <div
-        className={`d-flex align-items-center justify-content-center bg-white estilos 
-        ${index === 0 ? "leftround" : "rightround"} ${
-          dropdownVisible ? "slide-in" : "slide-out"
-        } `}
+        className={`d-flex align-items-center justify-content-center estilos 
+        ${index === 0 ? "leftround" : "rightround"} `}
         onClick={() => setStyle(pessoa)}
         type="button"
       >
-        <span type="button" className="fontado text-center" key={pessoa}>
+        <div type="button" className="fontado text-center" key={pessoa}>
           {pessoa}
-        </span>
+        </div>
       </div>
     );
   };
@@ -104,29 +97,24 @@ export default function Main() {
       <div
         className="d-flex justify-content-center position-absolute left-0 top-0 m-4"
         style={{ top: "16px" }}
+        onMouseEnter={() => setDropdownVisible(true)}
+        onMouseLeave={() => setDropdownVisible(false)}
       >
-        <span
-          className="cursor-pointer w-auto h-auto"
-          type="button"
-          onClick={toggleDropdown}
-        >
+        <span className="cursor-pointer w-auto h-auto" type="button">
           <Bars3Icon width={40} style={{ color: "white" }} />
         </span>
         {dropdownVisible &&
           estilos.map((pessoa) => <StyleComponent pessoa={pessoa} />)}
       </div>
-      <span
+      <div
         className="cursor-pointer w-auto h-auto position-absolute left-0 text-center topalgo m-4"
         type="button"
+        onMouseEnter={() => setMadeByVisible(true)}
+        onMouseLeave={() => setMadeByVisible(false)}
       >
-        <InformationCircleIcon
-          onMouseEnter={() => setMadeByVisible(true)}
-          onMouseLeave={() => setMadeByVisible(false)}
-          width={40}
-          style={{ color: "white" }}
-        />
-      </span>
-      {madeByVisible && <MadeBy />}
+        <InformationCircleIcon width={40} style={{ color: "white" }} />
+        {madeByVisible && <MadeBy />}
+      </div>
       {renderStyle()}
     </>
   );

@@ -39,6 +39,12 @@ export default function Gika({ nowPlaying }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   }
 
+  function updateFontSize(length) {
+    if (length <= 22) return "48px";
+    if (length <= 46) return "34px";
+    if (length > 46) return "24px";
+  }
+
   return (
     <div
       className="imagediva rounded-4"
@@ -54,7 +60,6 @@ export default function Gika({ nowPlaying }) {
             className="song"
             style={{
               color: colors.muted,
-              fontSize: nowPlaying.name.length > 46 ? "36px" : "48px",
             }}
           >
             {nowPlaying.name}
@@ -64,10 +69,10 @@ export default function Gika({ nowPlaying }) {
           </div>
         </div>
         <div>
-          <div className="acima">
+          <div className="acimag">
             <div className="rectangla1 rounded bg-white" />
             <div
-              className="rectangla2 rounded"
+              className="rectangla2 rounded-3"
               style={{
                 width: `${Math.floor(
                   (nowPlaying.currentTime / nowPlaying.length) * 100
@@ -115,7 +120,7 @@ export default function Gika({ nowPlaying }) {
               style={{ color: colors.muted }}
             />
           </span>
-          <div className="acima">
+          <div className="acimag">
             <div className="rectangla1 rounded bg-white" />
             <div
               className="rectangla2 rounded"

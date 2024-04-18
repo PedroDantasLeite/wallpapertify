@@ -22,6 +22,7 @@ body {
 .estilos {
   height: auto;
   width: 80px;
+  background-color: lightgray;
 }
 
 .containermeuovo {
@@ -37,26 +38,19 @@ body {
   margin-bottom: auto;
 }
 
-.slide-in {
-  transform: translateX(0);
-  transition: transform 0.3s ease-out;
-}
-
-.slide-out {
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in;
-}
-
 .leftround {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  border: 2px solid lightgray;
 }
 
 .rightround {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  border-top: 2px solid lightgray;
-  border-right: 2px solid lightgray;
-  border-bottom: 2px solid lightgray;
+}
+
+.divider {
+  color: black;
+  width: 2px;
+  height: 100%;
+  background-color: black;
 }
