@@ -11,7 +11,7 @@
  * @license  MIT
  */
 
-/*! Fast Average Color | © 2022 Denis Seleznev | MIT License | https://github.com/fast-average-color/fast-average-color */
+/*! Fast Average Color | © 2023 Denis Seleznev | MIT License | https://github.com/fast-average-color/fast-average-color */
 
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 
